@@ -5,15 +5,14 @@ A Python library for working with the Apertus chat format - a custom conversatio
 ## Features
 
 - Multi-layered assistant messages with thinking, tool calls, and responses
-- Support for both simple strings and structured content
 - Native tool integration with parallel calls
 - Chat template formatting for Apertus models
 
-## Installation
+## Documentation
 
-```bash
-pip install apertus-format
-```
+- **[Format Specification](docs/format.md)** - Apertus format specification
+- **[API Reference](docs/python.md)** - Complete API documentation
+- **[Examples](examples/)** - Usage examples
 
 ## Quick Start
 
@@ -34,9 +33,3 @@ formatter = ApertusFormatter(enable_thinking=True)
 formatted = formatter.format_conversation(conversation)
 print(formatted)
 ```
-
-## Documentation
-
-- **[Format Specification](docs/format.md)** - Apertus format specification
-- **[API Reference](docs/python.md)** - Complete API documentation
-- **[Examples](examples/)** - Usage examples
