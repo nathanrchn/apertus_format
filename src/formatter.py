@@ -20,7 +20,7 @@ class ApertusFormatter:
     """Formatter for converting conversations to/from the Apertus chat template format."""
 
     # Special tokens
-    BOS_TOKEN = "<|begin_of_text|>"
+    BOS_TOKEN = "<s>"
     SYSTEM_START = "<|system_start|>"
     SYSTEM_END = "<|system_end|>"
     DEVELOPER_START = "<|developer_start|>"
@@ -49,7 +49,6 @@ class ApertusFormatter:
         self.enable_thinking = enable_thinking
         self.tools = tools or []
 
-        # Load the Jinja2 template
         template_path = os.path.join(
             os.path.dirname(__file__), "templates", "chat_template.jinja"
         )
@@ -82,7 +81,7 @@ class ApertusFormatter:
         ]
 
         if not assistant_messages:
-            return  # No assistant messages to validate
+            return
 
         # Detect format from first assistant message
         first_idx, first_assistant = assistant_messages[0]
@@ -99,7 +98,7 @@ class ApertusFormatter:
         # Validate all assistant messages use the same format
         for i, message in assistant_messages[
             1:
-        ]:  # Skip first, already used for detection
+        ]:
             if expected_format == ContentFormat.STRING:
                 if not isinstance(message.content, str):
                     raise ValueError(
@@ -124,7 +123,6 @@ class ApertusFormatter:
         for message in messages:
             msg_dict = {"role": message.role.value}
 
-            # Handle content based on type
             if isinstance(message.content, str):
                 msg_dict["content"] = message.content
             elif isinstance(message.content, SystemContent):
@@ -156,7 +154,6 @@ class ApertusFormatter:
             else:
                 msg_dict["content"] = message.content
 
-            # Handle tool calls in message
             if message.tool_calls:
                 msg_dict["tool_calls"] = []
                 for tool_call in message.tool_calls:
@@ -190,10 +187,8 @@ class ApertusFormatter:
         Raises:
             ValueError: If assistant messages have inconsistent content formats
         """
-        # Validate format consistency first
         self._validate_format_consistency(conversation.messages)
 
-        # Prepare template variables
         template_vars = {
             "bos_token": self.BOS_TOKEN,
             "messages": self._prepare_messages_for_template(conversation.messages),
@@ -202,7 +197,6 @@ class ApertusFormatter:
             "add_generation_prompt": add_generation_prompt,
         }
 
-        # Render using Jinja2 template
         return self.template.render(**template_vars)
 
     def format_assistant_content(self, assistant_content: AssistantContent) -> str:
@@ -218,10 +212,8 @@ class ApertusFormatter:
         Returns:
             Formatted string representation of the assistant content
         """
-        # Create a temporary message with just the assistant content
         temp_message = Message(role=Role.ASSISTANT, content=assistant_content)
 
-        # Format just the assistant part
         template_vars = {
             "bos_token": "",  # No BOS token for content-only formatting
             "messages": self._prepare_messages_for_template([temp_message]),
@@ -230,10 +222,8 @@ class ApertusFormatter:
             "add_generation_prompt": False,
         }
 
-        # Render and extract just the assistant content part
         full_rendered = self.template.render(**template_vars)
 
-        # Extract content between assistant tokens
         start_pattern = self.ASSISTANT_START
         end_pattern = self.ASSISTANT_END
 
@@ -246,7 +236,6 @@ class ApertusFormatter:
             else:
                 return full_rendered[start_idx:].strip()
 
-        # Fallback: return full rendered content
         return full_rendered.strip()
 
     def format_assistant_message_as_string(self, message: Message) -> str:
@@ -279,10 +268,6 @@ class ApertusFormatter:
         Returns:
             Parsed Conversation object
         """
-        # This is a simplified parser - a full implementation would need
-        # more sophisticated parsing logic to handle all edge cases
-
-        # Remove BOS token
         text = formatted_text
         if text.startswith(self.BOS_TOKEN):
             text = text[len(self.BOS_TOKEN) :]
@@ -318,7 +303,6 @@ class ApertusFormatter:
         )
         for match in assistant_matches:
             assistant_content = match.group(1).strip()
-            # This is simplified - would need to parse blocks properly
             messages.append(Message.assistant(assistant_content))
 
         return Conversation(messages)

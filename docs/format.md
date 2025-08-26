@@ -299,7 +299,7 @@ The Apertus format uses special tokens to structure the conversation when render
 ### Example Rendered Output
 
 ```
-<|begin_of_text|><|system_start|>You are helpful.<|system_end|>
+<s><|system_start|>You are helpful.<|system_end|>
 <|developer_start|>Deliberation: enabled
 Tool Capabilities: disabled<|developer_end|>
 <|user_start|>What is 2+2?<|user_end|>
