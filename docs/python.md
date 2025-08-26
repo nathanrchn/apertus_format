@@ -110,15 +110,6 @@ Methods:
 - `format_assistant_message_as_string(message: Message)` - format assistant message content as string for standard chat formats
 - `parse_conversation(formatted_text: str)` - parse formatted text back to Conversation object
 
-### Token Definitions
-The formatter uses these special tokens:
-- `<|system_start|>` / `<|system_end|>` - system message boundaries
-- `<|user_start|>` / `<|user_end|>` - user message boundaries  
-- `<|assistant_start|>` / `<|assistant_end|>` - assistant message boundaries
-- `<|developer_start|>` / `<|developer_end|>` - developer message boundaries
-- `<|inner_prefix|>` / `<|inner_suffix|>` - inner/outer section boundaries
-- `<|tools_prefix|>` / `<|tools_suffix|>` - tool call boundaries
-
 ## Usage Examples
 
 ### Basic Usage

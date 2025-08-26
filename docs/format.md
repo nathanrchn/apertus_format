@@ -396,14 +396,3 @@ The answer is 4.<|assistant_end|>
     }
 ]
 ```
-
-## Key Benefits
-
-1. **Flexibility**: Mix content formats freely for system/user messages
-2. **Structure**: Rich assistant messages with reasoning and tool usage
-3. **Transparency**: Clear separation of thinking vs. final responses  
-4. **Tool Integration**: Multiple ways to handle tool interactions
-5. **Consistency**: Predictable assistant message formatting
-6. **Compatibility**: Can be converted to standard chat formats
-
-The Apertus format provides a powerful foundation for building sophisticated AI agents that can think, use tools, and provide comprehensive responses while maintaining compatibility with existing systems.
