@@ -37,9 +37,6 @@ print(formatted)
 
 ## Documentation
 
-- **[API Reference](API.md)** - Complete API documentation
+- **[Format Specification](docs/format.md)** - Apertus format specification
+- **[API Reference](docs/python.md)** - Complete API documentation
 - **[Examples](examples/)** - Usage examples
-
-## License
-
-MIT License - see LICENSE file for details.
