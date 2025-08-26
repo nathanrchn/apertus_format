@@ -238,45 +238,45 @@ The format also supports the standard OpenAI-style tool calls:
 
 The Apertus format has relaxed consistency rules that provide maximum flexibility:
 
-### ✅ What's Allowed
+### What is allowed
 
 1. **Mixed System/User Formats**: System and user messages can use any combination of string and mapping formats
 2. **Consistent Assistant Formats**: All assistant messages must use the same format (all string OR all structured)  
 3. **Tool Message Exception**: Tool messages are always strings and don't affect validation
 
-### ❌ What's Not Allowed
+### What is not allowed
 
 1. **Mixed Assistant Formats**: Cannot mix string and structured assistant messages in the same conversation
 
 ### Examples
 
-**✅ Valid: Mixed system/user, consistent assistants**
+**Valid: Mixed system/user, consistent assistants**
 ```python
 [
     {"role": "system", "content": "String format system"},           # String
     {"role": "user", "content": {"parts": [...]}},                   # Mapping
     {"role": "assistant", "content": "String assistant 1"},          # String
-    {"role": "assistant", "content": "String assistant 2"}           # String ✓
+    {"role": "assistant", "content": "String assistant 2"}           # String
 ]
 ```
 
-**✅ Valid: Any mix with structured assistants**
+**Valid: Any mix with structured assistants**
 ```python
 [
     {"role": "system", "content": {"text": "Mapping system"}},        # Mapping
     {"role": "user", "content": "String user"},                      # String
     {"role": "assistant", "content": {"blocks": [...]}},             # Structured
-    {"role": "assistant", "content": {"blocks": [...]}}              # Structured ✓
+    {"role": "assistant", "content": {"blocks": [...]}}              # Structured
 ]
 ```
 
-**❌ Invalid: Inconsistent assistant formats**
+**Invalid: Inconsistent assistant formats**
 ```python
 [
     {"role": "system", "content": "Any format"},
     {"role": "user", "content": "Any format"},
     {"role": "assistant", "content": "String assistant"},           # String
-    {"role": "assistant", "content": {"blocks": [...]}}             # Structured ❌
+    {"role": "assistant", "content": {"blocks": [...]}}             # Structured
 ]
 ```
 
