@@ -4,9 +4,8 @@ A Python library for working with the Apertus chat format - a custom conversatio
 
 ## Features
 
-- Multi-layered assistant messages with thinking, tool calls, and responses
-- Native tool integration with parallel calls
-- Chat template formatting for Apertus models
+- Multi-layered assistant messages with thinking, tool calls, and responses.
+- Native tool integration with parallel calls.
 
 ## Documentation
 
